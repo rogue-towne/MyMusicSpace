@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "src/index.html"),
         playlist: resolve(__dirname, "src/playlist/create-playlist.html"),
+        explore: resolve(__dirname, "src/explore/index.html"),
       },
     },
   },
