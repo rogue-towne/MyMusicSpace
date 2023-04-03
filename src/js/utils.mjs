@@ -1,52 +1,48 @@
-// retrieve data from localstorage
-export function getLocalStorage(key) {
+ export default class Utility {
+  constructor(selector){
+    this.exploreBtn = selector;
+    this.explorePath = location.origin + "/explore/index.html";
+  }
+  async init(){
+    this.exploreBtn.onclick = () => {
+      window.location.href = this.explorePath;
+    }
+    this.exploreBtn.ontouch = () => {
+      window.location.href = this.explorePath;
+    }
+  }
+  getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
-// save data to local storage
-export function setLocalStorage(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
-}
-
-export function renderWithTemplate(template, parentElement, data, callback) {
-  parentElement.insertAdjacentHTML("afterbegin", template);
-  if (callback){
-    callback(data)
+  setLocalStorage(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
   }
-}
+  renderWithTemplate(template, parentElement, data, callback) {
+    parentElement.insertAdjacentHTML("afterbegin", template);
+    if (callback){
+      callback(data)
+    }
+  }
+  async loadTemplate(path){
+    const res = await fetch(path);
+    const template = await res.text();
+    return template;
+  }
 
-async function loadTemplate(path){
-  const res = await fetch(path);
-  const template = await res.text();
-  return template;
-}
+  async loadHeaderFooter(){
+    const headerTemplate = await this.loadTemplate("../partials/header.html");
+    const headerElement = document.querySelector("header")
+    const footerTemplate = await this.loadTemplate("../partials/footer.html");
+    const footerElement = document.querySelector("footer");
+    
+    this.renderWithTemplate(headerTemplate, headerElement);
+    this.renderWithTemplate(footerTemplate, footerElement);
+  }
+  async loadPartial(path, element){
+    const template = await this.loadTemplate(path);
+    const htmlElement = document.querySelector(element);
+    this.renderWithTemplate(template, htmlElement);
 
-export async function loadHeaderFooter(){
-  const headerTemplate = await loadTemplate("../partials/header.html");
-  const headerElement = document.querySelector("header")
-  const footerTemplate = await loadTemplate("../partials/footer.html");
-  const footerElement = document.querySelector("footer");
-  
-  renderWithTemplate(headerTemplate, headerElement);
-  renderWithTemplate(footerTemplate, footerElement);
-
-  // const cartLink = document.getElementById("cartLink");
-  // cartLink.setAttribute("href", location.origin + "/cart/index.html");
-
-  // const homeIconLink = document.getElementById("homeLink");
-  // homeIconLink.setAttribute("href", location.origin)
-}
- export async function loadPartial(path, element){
-  const template = await loadTemplate(path);
-  const htmlElement = document.querySelector(element);
-  renderWithTemplate(template, htmlElement);
-  
+ }
  }
 
-// set a listener for both touchend and click
-export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
-}
