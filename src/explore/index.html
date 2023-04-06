@@ -11,22 +11,20 @@
     <header></header>
     <main class="explore-contents">
       <h1>Explore</h1>
-      <form class="search-form">
+      <form class="search-form" action="../explore-results/index.html">
         <div class="search-box">
-          <input type="text" placeholder="Search.." name="search" />
-          <button type="submit">&#x2315;</button>
-        </div>
-        <div class="filter-box">
-          <label>Filter By:</label>
-          <input type="radio" id="song" name="fav_language" value="song" />
-          <label for="song">Song</label>
-          <input type="radio" id="artist" name="fav_language" value="artist" />
-          <label for="artist">Artist</label>
+          <input
+            id="search"
+            type="text"
+            placeholder="Search.."
+            name="search"
+            required
+          />
+          <button type="submit" class="submit-btn">&#x2315;</button>
         </div>
       </form>
-      <button>Charts</button>
-      <button>New Releases</button>
-      <button>Favorite Artists</button>
+      <button class="top-songs-btn">Top Songs</button>
+      <button class="top-artists-btn">Top Artists</button>
     </main>
     <footer></footer>
   </body>

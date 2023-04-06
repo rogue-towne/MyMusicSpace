@@ -1,16 +1,15 @@
  export default class Utility {
-  constructor(selector){
-    this.exploreBtn = selector;
-    this.explorePath = location.origin + "/explore/index.html";
+  constructor(){
+    this.origin = location.origin;
   }
-  async init(){
-    this.exploreBtn.onclick = () => {
-      window.location.href = this.explorePath;
+async setButtons(buttons){
+  buttons.forEach(button => {
+    button["htmlElement"].onclick = () => {
+      window.location.href = this.origin + button["url"];
     }
-    this.exploreBtn.ontouch = () => {
-      window.location.href = this.explorePath;
-    }
-  }
+  });
+}
+
   getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
@@ -22,6 +21,16 @@
     if (callback){
       callback(data)
     }
+  }
+   getParamPair(){
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var paramPair = {};
+    for (const [key, value] of urlParams){
+      paramPair = {key, value}
+    }
+    // const product = urlParams.get(param);   
+    return paramPair;
   }
   async loadTemplate(path){
     const res = await fetch(path);
@@ -37,6 +46,7 @@
     
     this.renderWithTemplate(headerTemplate, headerElement);
     this.renderWithTemplate(footerTemplate, footerElement);
+
   }
   async loadPartial(path, element){
     const template = await this.loadTemplate(path);
@@ -44,5 +54,6 @@
     this.renderWithTemplate(template, htmlElement);
 
  }
+
  }
 

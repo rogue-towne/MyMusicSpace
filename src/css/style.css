@@ -183,6 +183,31 @@ a {
   display: block;
 }
 
+.results-container {
+  max-width: 900px;
+}
+.result-card {
+  /* justify-content: space-between;  */
+  min-height: 15vh;
+  border-bottom: 2px solid var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.result-contents {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+}
+#song-title {
+  font-size: var(--medium-font);
+  font-family: var(--font-headers);
+}
+#artist-name {
+  font-family: var(--font-body);
+}
+#result-number {
+  float: left;
+}
+
 /*--------------------------------------*/
 
 footer {
@@ -197,6 +222,16 @@ footer {
 @media only screen and (max-width: 500px) {
   .search-box {
     max-width: 250px;
+  }
+  .result-card {
+    min-height: 15vh;
+    padding: 5px;
+  }
+  .result-card #song-title {
+    font-size: var(--base-font);
+  }
+  .result-card #artist-name {
+    font-size: var(--small-font);
   }
   .search-form {
   }
