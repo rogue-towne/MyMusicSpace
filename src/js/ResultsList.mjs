@@ -11,7 +11,7 @@ function songTemplateFunction(song, count){
         </div>
     </li>
     </a>`
-}
+};
 function artistTemplateFunction(artist, count){
     return `<a href="../explore-results/index.html?artistId=${artist["artistId"]}">
     <li class="result-card">
@@ -21,7 +21,7 @@ function artistTemplateFunction(artist, count){
       </div>
     </li>
   </a>`
-}
+};
 
 
 export default class ResultsList{
@@ -79,15 +79,15 @@ export default class ResultsList{
             case "search":
                 this.dataSource = new ApiService();
                 data = await this.dataSource.getSearchResults(this.paramValue);
-                const searchTemplate = this.populateSearchResultsTemplate(this.extractSearchResultData(data), songTemplateFunction, artistTemplateFunction)
-                this.renderResultsList(searchTemplate);
+                // const searchTemplate = this.populateSearchResultsTemplate(this.extractSearchResultData(data), songTemplateFunction, artistTemplateFunction)
+                // this.renderResultsList(searchTemplate);
                 break; 
         }
-        }
+    };
     
     renderResultsList(template){
         this.listElement.insertAdjacentHTML("afterbegin", template);
-    }
+    };
     extractArtistSongsData(data){
         var length = data["songs"].length;
         const filteredData = [];
@@ -95,7 +95,7 @@ export default class ResultsList{
             filteredData.push({songId: data["songs"][i]["id"], songTitle: data["songs"][i]["title"], artistName: data["songs"][i]["primary_artist"]["name"]})
         };
         return filteredData; 
-    }
+    };
     extractTopSongData(songs){
         var length = songs["chart_items"].length;
         const filteredData = [];
@@ -103,7 +103,8 @@ export default class ResultsList{
             filteredData.push({songId: songs["chart_items"][i]["item"]["id"], songTitle: songs["chart_items"][i]["item"]["title"], artistName: songs["chart_items"][i]["item"]["primary_artist"]["name"]})
         };
         return filteredData; 
-    }
+    };
+
     extractTopArtistsData(artists){
         var length = artists["chart_items"].length;
         const filteredData = [];
@@ -111,7 +112,8 @@ export default class ResultsList{
             filteredData.push({artistId: artists["chart_items"][i]["item"]["id"], artistName: artists["chart_items"][i]["item"]["name"]})
         };
         return filteredData; 
-    }
+    };
+
     extractSearchResultData(data){
         const filteredData = [];
         data["sections"].forEach(result => {
@@ -137,6 +139,7 @@ export default class ResultsList{
         })
         return filteredData; 
     };
+
     populateSearchResultsTemplate(data, songTemplateFn, artistTemplateFn){
         let count = 1;
         let htmlString = "";
@@ -151,7 +154,7 @@ export default class ResultsList{
             } 
           });
           return htmlString;
-    }
+    };
 
     populateTemplate(data, templateFunction){
         let count = 1;
@@ -162,5 +165,5 @@ export default class ResultsList{
         });
         return htmlString;
 
-    }
+    };
 }
